@@ -1,40 +1,23 @@
 
-import { useState } from 'react'
-
+import { useState, useEffect } from 'react'
 import { AiOutlineLike } from 'react-icons/ai'
 import { AiFillLike } from 'react-icons/ai'
 import { AiOutlineDislike } from 'react-icons/ai'
 import { AiFillDislike } from 'react-icons/ai'
+import { BsArrowDownCircle, BsArrowUpCircle } from "react-icons/bs";
 
 import './App.css'
 import './styles/like.css'
 
-const Like = () => {
-  const [likes, setLikes] = useState(0)
-  const [isLiked, setIsLiked] = useState(false)`
-  const [dislikes, setDislikes] = useState(0)
-  const [isDisliked, setIsDisliked] = useState(false)
 
-import { useState, useEffect } from "react";
-import "./App.css";
-import { BsArrowDownCircle, BsArrowUpCircle } from "react-icons/bs";
 
 function App() {
   const [joke, setJoke] = useState([]);
   const [openDiv, setOpenDiv] = useState(false);
-
-  useEffect(() => {
-    getJokesFunction();
-  }, []);
-
-  const getJokesFunction = () => {
-    let options = {
-      method: "GET",
-      headers: {
-        "x-api-key": "dDngk3K69nspwV4M2GNXFQ==yMoXWr09NuNxkpyZ",
-      },
-    };
-
+  const [likes, setLikes] = useState(0)
+  const [isLiked, setIsLiked] = useState(false)
+  const [dislikes, setDislikes] = useState(0)
+  const [isDisliked, setIsDisliked] = useState(false)
 
 
   const likeClick = () => {
@@ -58,21 +41,33 @@ function App() {
     }
   }
 
-  return (
-    <div className='likes-container'>
-      <div className='like'>
-        <div className='like-logo'> {isLiked ? <AiFillLike /> : <AiOutlineLike />} </div>
-        <div className='like-counter' >{likes}</div>
-        <div className='dislike-logo'>{isDisliked ? <AiFillDislike /> : <AiOutlineDislike />}</div>
-        <div className='dislike-counter'>{dislikes}</div>
-      </div>
-      <div className='buttons'>
-        <button onClick={() => likeClick()}>Like</button>
-        <button onClick={() => dislikeClick()}>Dislike</button>
-      </div>
-    </div >
-  )
-}
+  useEffect(() => {
+    getJokesFunction();
+  }, []);
+
+
+  const getJokesFunction = () => {
+    let options = {
+      method: "GET",
+      headers: {
+        "x-api-key": "dDngk3K69nspwV4M2GNXFQ==yMoXWr09NuNxkpyZ",
+      },
+    };
+
+    let url = "https://api.api-ninjas.com/v1/jokes?limit=1";
+
+    fetch(url, options)
+      .then((res) => res.json()) // parse response as JSON
+      .then((data) => {
+        console.log(data);
+        setJoke(data);
+      })
+      .catch((err) => {
+        console.log(`error ${err}`);
+      });
+
+    console.log(joke);
+  };
 
 
 
@@ -104,7 +99,20 @@ function App() {
               );
             })}
           </p>
-      <Like />
+
+          <div className='likes-container'>
+            <div className='like'>
+              <div className='like-logo'> {isLiked ? <AiFillLike /> : <AiOutlineLike />} </div>
+              <div className='like-counter' >{likes}</div>
+              <div className='dislike-logo'>{isDisliked ? <AiFillDislike /> : <AiOutlineDislike />}</div>
+              <div className='dislike-counter'>{dislikes}</div>
+            </div>
+            <div className='buttons'>
+              <button onClick={() => likeClick()}>Like</button>
+              <button onClick={() => dislikeClick()}>Dislike</button>
+            </div>
+
+          </div >
           <BsArrowUpCircle
             className="icon down"
             onMouseEnter={getAJoke}
@@ -114,7 +122,7 @@ function App() {
       )}
       <div className="jokeTitle">Have a nice day</div>
     </>
-  );
+  ); 
 
 }
 
