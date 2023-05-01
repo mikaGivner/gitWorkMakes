@@ -1,72 +1,63 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react'
+
+import { AiOutlineLike } from 'react-icons/ai'
+import { AiFillLike } from 'react-icons/ai'
+import { AiOutlineDislike } from 'react-icons/ai'
+import { AiFillDislike } from 'react-icons/ai'
+
 import './App.css'
-import {BsArrowDownCircle} from 'react-icons/Bs';
-import {BsArrowUpCircle} from 'react-icons/Bs';
-function App() {
-  const [joke, setJoke] = useState([]);
- const [openDiv, setOpenDiv]=useState(false);
-  useEffect(() => {
-    if(openDiv){
+import './styles/like.css'
 
+const Like = () => {
+  const [likes, setLikes] = useState(0)
+  const [isLiked, setIsLiked] = useState(false)
+  const [dislikes, setDislikes] = useState(0)
+  const [isDisliked, setIsDisliked] = useState(false)
+
+
+  const likeClick = () => {
+
+    if (!isLiked) {
+      setLikes(likes + 1)
+      setDislikes(0)
+      setIsLiked(true)
+      setIsDisliked(false)
     }
-  },[openDiv]);
-   useEffect(() => {
-    getJokesFuncion();
-  }, []);
-  const getJokesFuncion = () => {
-    let options = {
-      method: "GET",
-      headers: {
-        "x-api-key": "dDngk3K69nspwV4M2GNXFQ==yMoXWr09NuNxkpyZ",
-      },
-    };
 
-    let url = "https://api.api-ninjas.com/v1/jokes?limit=1";
+  }
 
-    fetch(url, options)
-      .then((res) => res.json()) // parse response as JSON
-      .then((data) => {
-        console.log(data);
-        setJoke(data);
-      })
-      .catch((err) => {
-        console.log(`error ${err}`);
-      });
-
-    console.log(joke);
-  };
-
-  const GetAJoke=()=>{
-    if(openDiv){
-      setOpenDiv(false);
-      console.log("Now its false");
-    } else{
-      setOpenDiv(true);
-      console.log("Now its true");
-
+  const dislikeClick = () => {
+    if (!isDisliked) {
+      setDislikes(dislikes + 1)
+      setLikes(0)
+      setIsDisliked(true)
+      setIsLiked(false)
     }
   }
 
   return (
-    <>
-     <>{!openDiv?<div className="container">
-    <BsArrowDownCircle className='icon up' onMouseEnter={GetAJoke} onMouseLeave={GetAJoke}/> </div>:<div className='fullContainer'> <h1>Jokes App!</h1>
-      <p>The Joke is...</p>
-      <p>
-        {joke?.map((joke, index) => {
-          return (
-            <p key={index}>
-              <h2>{joke.joke}</h2>
-            </p>
-          );
-        })}
-      </p>
-    </>
-  );<BsArrowUpCircle className='icon down' onMouseEnter={GetAJoke} onMouseLeave={GetAJoke}/></div>}
-    <div className='jokeTitle'>Have an ice day</div> </>
-     
-
-
+    <div className='likes-container'>
+      <div className='like'>
+        <div className='like-logo'> {isLiked ? <AiFillLike /> : <AiOutlineLike />} </div>
+        <div className='like-counter' >{likes}</div>
+        <div className='dislike-logo'>{isDisliked ? <AiFillDislike /> : <AiOutlineDislike />}</div>
+        <div className='dislike-counter'>{dislikes}</div>
+      </div>
+      <div className='buttons'>
+        <button onClick={() => likeClick()}>Like</button>
+        <button onClick={() => dislikeClick()}>Dislike</button>
+      </div>
+    </div >
+  )
 }
 
-export default App;
+function App() {
+
+  return (
+    <>
+      <Like />
+    </>
+  )
+}
+
+export default App
