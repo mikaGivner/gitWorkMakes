@@ -1,35 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react';
 import './App.css'
-
+import {BsArrowDownCircle} from 'react-icons/Bs';
+import {BsArrowUpCircle} from 'react-icons/Bs';
 function App() {
-  const [count, setCount] = useState(0)
+  const [openDiv, setOpenDiv]=useState(false);
+  useEffect(() => {
+    if(openDiv){
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    }
+  },[openDiv]);
+  const GetAJoke=()=>{
+    if(openDiv){
+      setOpenDiv(false);
+      console.log("Now its false");
+    } else{
+      setOpenDiv(true);
+      console.log("Now its true");
+
+    }
+  }
+  return <>{!openDiv?<div className="container">
+    <BsArrowDownCircle className='icon up' onMouseEnter={GetAJoke} onMouseLeave={GetAJoke}/> </div>:<div className='fullContainer'><BsArrowUpCircle className='icon down' onMouseEnter={GetAJoke} onMouseLeave={GetAJoke}/></div>}
+    <div className='jokeTitle'>Have an ice day</div> </>
+    
+ 
+  
 }
 
 export default App
