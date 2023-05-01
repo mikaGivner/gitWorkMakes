@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 import { AiOutlineLike } from 'react-icons/ai'
 import { AiFillLike } from 'react-icons/ai'
@@ -20,6 +20,8 @@ function App() {
   const [dislikes, setDislikes] = useState(0)
   const [isDisliked, setIsDisliked] = useState(false)
 
+  const likeRef = useRef()
+
 
   const likeClick = () => {
 
@@ -28,6 +30,7 @@ function App() {
       setDislikes(0)
       setIsLiked(true)
       setIsDisliked(false)
+      likeRef.current.style.backgroundColor = '#B0DAFF'
     }
 
 
@@ -39,6 +42,7 @@ function App() {
       setLikes(0)
       setIsDisliked(true)
       setIsLiked(false)
+      likeRef.current.style.backgroundColor = '#FF6D60'
     }
   }
 
@@ -101,8 +105,8 @@ function App() {
             })}
           </p>
 
-          <div className='likes-container'>
-            <div className='like'>
+          <div className='likes-container' >
+            <div className='like' ref={likeRef}>
               <div className='like-logo'> {isLiked ? <AiFillLike /> : <AiOutlineLike />} </div>
               <div className='like-counter' >{likes}</div>
               <div className='dislike-logo'>{isDisliked ? <AiFillDislike /> : <AiOutlineDislike />}</div>
