@@ -1,0 +1,37 @@
+.likes-container {
+    padding: 5px;
+}
+
+.likes-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.like {
+    height: 30px;
+    width: 5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+
+    border: 1px solid black;
+}
+
+button {
+    margin: 5px;
+}
+
+
+
+.like-logo {
+    margin: 5px;
+}
+
+.dislike-logo {
+    margin: 5px;
+}
