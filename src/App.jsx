@@ -11,7 +11,7 @@ import './styles/like.css'
 
 const Like = () => {
   const [likes, setLikes] = useState(0)
-  const [isLiked, setIsLiked] = useState(false)
+  const [isLiked, setIsLiked] = useState(false)`
   const [dislikes, setDislikes] = useState(0)
   const [isDisliked, setIsDisliked] = useState(false)
 
