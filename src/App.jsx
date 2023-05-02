@@ -81,6 +81,7 @@ function App() {
           <h1>Jokes App!</h1>
           <p>The Joke is...</p>
           <p>This is title for diff command 1 </p>
+          <p>This is title for diff command 2 </p>
 
           <p>
             {joke?.map((joke, index) => {
